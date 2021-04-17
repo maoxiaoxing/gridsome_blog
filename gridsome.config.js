@@ -5,37 +5,42 @@
 // To restart press CTRL + C in terminal and run `gridsome develop`
 
 module.exports = {
-  siteName: 'Amanisky Blog',
+  siteName: 'Gridsome',
   plugins: [
-    // 将 strapi 平台的数据预取到 Gridsome 应用中
+    {
+      use: '@gridsome/source-filesystem',
+      options: {
+        path: './content/blog/**/*.md',
+        typeName: 'BlogPost'
+      }
+    },
     {
       use: '@gridsome/source-strapi',
       options: {
         apiURL: process.env.GRIDSOME_API_URL,
         queryLimit: 1000, // Defaults to 100
-        // typeName: 'Strapi',
-        contentTypes: ['project', 'category', 'journal', 'post'],
-        // singleTypes: ['home-banner']
+        contentTypes: ['post', 'tag'],
+        singleTypes: ['general']
         // Possibility to login with a Strapi user,
         // when content types are not publicly available (optional).
         // loginData: {
-        //   identifier: 'admin@email.com',
-        //   password: '123456'
+        //   identifier: '',
+        //   password: ''
         // }
       }
     }
   ],
   templates: {
-    StrapiProject: [
+    StrapiPost: [
       {
-        path: '/project/:id',
-        component: './src/templates/ProjectPost.vue'
+        path: '/post/:id',
+        component: './src/templates/Post.vue'
       }
     ],
-    StrapiJournal: [
+    StrapiTag: [
       {
-        path: '/journal/:id',
-        component: './src/templates/JournalPost.vue'
+        path: '/tag/:id',
+        component: './src/templates/Tag.vue'
       }
     ]
   }

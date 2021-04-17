@@ -1,85 +1,80 @@
 <template>
-  <div class="layout sticky-heade">
-    <Header />
-    <slot/>
-    <Footer />
+  <div class="layout">
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+      <div class="container">
+        <g-link class="navbar-brand" to="/">Start Bootstrap</g-link>
+        <button
+          class="navbar-toggler navbar-toggler-right"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarResponsive"
+          aria-controls="navbarResponsive"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          Menu
+          <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <g-link class="nav-link" to="/">Home</g-link>
+            </li>
+            <li class="nav-item">
+              <g-link class="nav-link" to="/about">About</g-link>
+            </li>
+            <li class="nav-item">
+              <g-link class="nav-link" to="/post">Sample Post</g-link>
+            </li>
+            <li class="nav-item">
+              <g-link class="nav-link" to="/contact">Contact</g-link>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <!-- 默认插槽 -->
+    <slot />
+
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-facebook-f fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="#">
+                  <span class="fa-stack fa-lg">
+                    <i class="fas fa-circle fa-stack-2x"></i>
+                    <i class="fab fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Your Website 2020</p>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </template>
 
-<script>
-import Header from "@/components/Header"
-import Footer from "@/components/Footer"
-
-export default {
-  components: {
-    Header,
-    Footer
-  }
-}
-</script>
-
-
-<style>
-* {
-  box-sizing: border-box;
-}
-
-body {
-  --color-base: rgb(255, 255, 255);
-  --color-base-1: rgb(243, 243, 243);
-  --color-contrast: rgb(0, 0, 0);
-  --color-contrast-1: rgb(43, 43, 43);
-  font-family: -apple-system, system-ui, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  margin: 0;
-  padding: 96px 0 0;
-  font-size: 16px;
-  background: var(--color-base);
-  color: var(--color-contrast);
-  transition: background 0.5s ease;
-}
-
-body.dark {
-  --color-base: rgb(0, 0, 0);
-  --color-base-1: rgb(43, 43, 43);
-  --color-contrast: rgb(255, 255, 255);
-  --color-contrast-1: rgb(243, 243, 243);
-}
-
-h1 {
-  letter-spacing: -0.01em;
-}
-
-.layout {
-  padding: 0;
-}
-
-.layout.sticky-header {
-  padding: 6rem 0 0 0;
-}
-
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 2rem;
-}
-
-@media (min-width: 860px) {
-  .container {
-    padding: 0 6rem;
-  }
-}
-
-a {
-  color: inherit;
-}
-
-img {
-  max-width: 100%;
-}
-
-.label {
-  display: block;
-  font-weight: 700;
-  margin-bottom: 0.5rem;
-}
-</style>
+<style></style>

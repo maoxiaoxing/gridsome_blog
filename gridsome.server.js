@@ -4,10 +4,9 @@
 
 // Changes here require a server restart.
 // To restart press CTRL + C in terminal and run `gridsome develop`
-const axios = require('axios')
 
 module.exports = function (api) {
-  api.loadSource(async ({ addCollection }) => {
+  api.loadSource(({ addCollection }) => {
     // Use the Data Store API here: https://gridsome.org/docs/data-store-api/
   })
 

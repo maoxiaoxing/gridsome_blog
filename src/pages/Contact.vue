@@ -1,34 +1,95 @@
 <template>
   <Layout>
-    <div class="container">
-
-      <div class="contact-header">
-        <h1 class="contact-title">Say hi!</h1>
-        <p>Leave me a note with any questions you might have, I'll get back to you as soon as possible.</p>
+    <!-- Page Header -->
+    <header class="masthead" style="background-image: url('/img/contact-bg.jpg')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="page-heading">
+              <h1>Contact Me</h1>
+              <span class="subheading">Have questions? I have answers.</span>
+            </div>
+          </div>
+        </div>
       </div>
+    </header>
 
-      <form class="contact-form" @submit.prevent="onSubmit">
-
-        <div class="sender-info">
-          <div>
-            <label for="name" class="label">Your name</label>
-            <input type="text" name="name" v-model="user.name" required />
-          </div>
-          <div>
-            <label for="email" class="label">Your email</label>
-            <input type="email" name="email" v-model="user.email" required />
-          </div>
+    <!-- Main Content -->
+    <div class="container">
+      <div class="row">
+        <div class="col-lg-8 col-md-10 mx-auto">
+          <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
+          <!-- Contact Form - Enter your email address on line 19 of the mail/contact_me.php file to make this form work. -->
+          <!-- WARNING: Some web hosts do not allow emails to be sent through forms to common mail hosts like Gmail or Yahoo. It's recommended that you use a private domain email address! -->
+          <!-- To use the contact form, your site must be on a live web host with PHP! The form will not work locally! -->
+          <form name="sentMessage" id="contactForm" novalidate>
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <label>Name</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  placeholder="Name"
+                  v-model="from.name"
+                  id="name"
+                  required
+                  data-validation-required-message="Please enter your name."
+                />
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <label>Email Address</label>
+                <input
+                  type="email"
+                  class="form-control"
+                  placeholder="Email Address"
+                  v-model="from.email"
+                  id="email"
+                  required
+                  data-validation-required-message="Please enter your email address."
+                />
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="form-group col-xs-12 floating-label-form-group controls">
+                <label>Phone Number</label>
+                <input
+                  type="tel"
+                  class="form-control"
+                  placeholder="Phone Number"
+                  v-model="from.phone"
+                  id="phone"
+                  required
+                  data-validation-required-message="Please enter your phone number."
+                />
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            <div class="control-group">
+              <div class="form-group floating-label-form-group controls">
+                <label>Message</label>
+                <textarea
+                  rows="5"
+                  class="form-control"
+                  placeholder="Message"
+                  id="message"
+                  v-model="from.message"
+                  required
+                  data-validation-required-message="Please enter a message."
+                ></textarea>
+                <p class="help-block text-danger"></p>
+              </div>
+            </div>
+            <br />
+            <div id="success"></div>
+            <button type="submit" class="btn btn-primary" id="sendMessageButton" @click.prevent="onSubmit">Send</button>
+          </form>
         </div>
-
-        <div class="message">
-          <label for="message" class="label">Message</label>
-          <textarea name="message" v-model="user.message"></textarea>
-        </div>
-
-        <button type="submit" class="button">Submit form</button>
-
-      </form>
-
+      </div>
     </div>
   </Layout>
 </template>
@@ -36,12 +97,13 @@
 <script>
 import axios from 'axios'
 export default {
-  name: 'ContactPage',
+  name: "ContactPage",
   data () {
     return {
-      user: {
+      from: {
         name: '',
         email: '',
+        phone: '',
         message: ''
       }
     }
@@ -49,74 +111,19 @@ export default {
   methods: {
     async onSubmit () {
       try {
-        await axios.post(`${this.GRIDSOME_API_URL}/contacts`, this.user)
-        alert('留言成功')
-        Object.assign(this.$data, this.$options.data())
+        await axios({
+          method: 'POST',
+          url: 'http://localhost:1337/contacts',
+          data: this.from
+        })
+        window.alert('提交成功')
       } catch (err) {
-        alert('error：' + err.response.data.data.errors.email.join(''))
+        window.alert('提交失败, 请稍后重试')
       }
     }
   }
-}
+};
 </script>
 
-<style scoped>
-.contact-header {
-  padding: 2rem 0 4rem 0;
-}
-.contact-title {
-  font-size: 4rem;
-  margin: 0 0 4rem 0;
-  padding: 0;
-}
-.sender-info {
-  display: flex;
-  flex-wrap: wrap;
-  margin-bottom: 2rem;
-}
-.sender-info > div {
-  flex: 1;
-  margin-right: 4rem;
-}
-.sender-info > div:last-of-type {
-  margin: 0;
-}
-input:focus,textarea:focus {
-  border-color: var(--color-contrast-1);
-}
-input,textarea {
-  background: transparent;
-  border: 1px solid var(--color-base-1);
-  outline: none;
-  border-radius: 0.3rem;
-  padding: 0.8rem 1rem;
-  color: inherit;
-  font-size: 1rem;
-  width: 100%;
-}
-textarea {
-  resize: none;
-  height: 140px;
-}
-.button {
-  color: var(--color-base);
-  background: var(--color-contrast);
-  outline: none;
-  border: 0;
-  font-size: 0.8rem;
-  padding: 0.8rem 1.6rem;
-  border-radius: 0.3rem;
-  margin-top: 2rem;
-  cursor: pointer;
-  transition: opacity 0.25s ease;
-  font-size: 500;
-  letter-spacing: 0.035em;
-}
-.button:hover {
-  opacity: 0.6;
-}
-.button:focus {
-  border: 1px solid var(--color-base-1);
-}
+<style>
 </style>
-
