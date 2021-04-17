@@ -10,7 +10,7 @@
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="site-heading">
-              <h1>{{ general.title}}</h1>
+              <h1>毛小星的博客</h1>
               <span class="subheading">{{general.subtitle}}</span>
             </div>
           </div>
