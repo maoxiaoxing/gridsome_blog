@@ -31,7 +31,7 @@
               Posted by
               <g-link
                 href="#"
-              >{{ edge.node.created_by.firstname + edge.node.created_by.lastname }}</g-link>
+              >毛小星</g-link>
               on {{ edge.node.created_at }}
             </p>
             <p>
